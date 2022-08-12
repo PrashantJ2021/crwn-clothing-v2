@@ -18,7 +18,7 @@ const defaultFormFields = {
 }
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
+  const { email, password } = formFields;
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -38,7 +38,7 @@ const SignInForm = () => {
       const response = await signInAuthUserWithEmailAndPassword(email, password);
       console.log(response);
       const { user } = response;
-
+      resetFormFields();
     } catch (error) {
       switch (error.code) {
         case 'auth/wrong-password': alert('incorrect password for email');
@@ -50,8 +50,7 @@ const SignInForm = () => {
     }
   }
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   }
 
   return (
