@@ -10,16 +10,18 @@ import SignInForm from '../../components/sign-in-form/sign-in-form.component';
 import './authentication.styles.scss';
 
 const Authentication = () => {
-  useEffect(async () => {
-    const response = await getRedirectResult(auth);
-    console.log(response);
-    const userDocRef = await createUserDocumentFromAuth(response?.user);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getRedirectResult(auth);
+      console.log(response);
+      const userDocRef = await createUserDocumentFromAuth(response?.user);
+    }
+    fetchData();
   }, []);
 
   return (
     <div className='authentication-container'>
       <SignInForm />
-      <SignUpForm />
     </div>
   )
 }
